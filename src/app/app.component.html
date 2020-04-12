@@ -15,8 +15,11 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Nouveau Compte</a></li>
+      <li>
+        <a *ngIf="!isAuthenticated()" class="btn" routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Connexion</a>
+        <a *ngIf="isAuthenticated()" class="btn" (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span> Deconnexion</a>
+      </li>
     </ul>
   </div>
 </nav>

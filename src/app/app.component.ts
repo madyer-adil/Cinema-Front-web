@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
@@ -6,11 +6,15 @@ import {AuthenticationService} from "./services/authentication.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Cinema-Front-web';
+export class AppComponent implements OnInit{
+    title = 'Cinema-Front-web';
   constructor(public authService:AuthenticationService) {
-    
+
   }
+  ngOnInit(): void {
+    this.authService.loadToken();
+  }
+
   isAdmin(){
     return this.authService.isAdmin();
   }
@@ -19,5 +23,9 @@ export class AppComponent {
   }
   isAuthenticated(){
     return this.authService.isAuthenticated();
+  }
+
+  logOut() {
+    this.authService.logOut();
   }
 }

@@ -35,7 +35,19 @@ export class AuthenticationService {
     return this.roles.indexOf('USER') >= 0;
   }
   isAuthenticated(){
-    return this.roles;
+    return (this.roles.length >= 1);
+  }
+
+  loadToken() {
+    this.jwt = localStorage.getItem('token');
+    this.parseJWT();
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    this.jwt = undefined;
+    this.username = undefined;
+    this.roles.splice(0,this.roles.length);
   }
 }
 
