@@ -1,1 +1,47 @@
-<p>admin-villes works!</p>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">Gestion des villes</div>
+    <div class="panel-body">
+      <a class="btn" (click)="OnAddVille()"><span class="glyphicon glyphicon-floppy-save"></span> Ajouter une ville</a>
+      <p>
+      </p>
+      <div *ngIf="mode=='new-ville'" class="col-md-4">
+        <form #f="ngForm" (ngSubmit)="onSaveVille(f.value)">
+          <div class="form-group">
+            <label class="control-label">Nom de la ville</label>
+            <input type="text" class="form-control" name="name" ngModel>
+          </div>
+          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-check"></span> Valider</button>
+          <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Annuler</button>
+        </form>
+      </div>
+      <div *ngIf="mode=='edit-ville'" class="col-md-4">
+        <form #f="ngForm" (ngSubmit)="onUpdateVille(f.value)">
+          <div class="form-group">
+            <label class="control-label">Nom de la ville</label>
+            <input type="text" class="form-control" name="name" ngModel [(ngModel)]="currentVille.name">
+          </div>
+          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-check"></span> Valider</button>
+          <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Annuler</button>
+        </form>
+      </div>
+      <table class="table table-hover" *ngIf="villes">
+        <thead>
+          <tr>
+            <th>Nom de la ville</th>
+            <th width="30%">Opérations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of villes._embedded.villes">
+            <td>{{v.name}}</td>
+            <td>
+              <a class="btn" (click)="onDeleteVille(v)" title="Suprimer"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+              <a class="btn" (click)="onEditVille(v)"  title="Editer"><span class="glyphicon glyphicon-floppy-open"></span></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

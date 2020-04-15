@@ -7,10 +7,9 @@
       <li class="nav-item"><a routerLink="/cinema">Cinema</a></li>
       <li class="dropdown" *ngIf="isAdmin()"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Gestion des utilisateurs</a></li>
-          <li><a class="dropdown-item" href="#">Gestion des villes</a></li>
-          <li><a class="dropdown-item" href="#">Gestion des cinemas</a></li>
-          <li><a class="dropdown-item" href="#">Gestion des Salles</a></li>
+          <li><a class="dropdown-item" routerLink="/adminUsers">Gestion des utilisateurs</a></li>
+          <li><a class="dropdown-item" routerLink="/adminVilles">Gestion des villes</a></li>
+          <li><a class="dropdown-item" routerLink="/adminCinemas">Gestion des cinemas</a></li>
         </ul>
       </li>
     </ul>

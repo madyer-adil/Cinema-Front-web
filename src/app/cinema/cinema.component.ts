@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CinemaService } from '../services/cinema.service';
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-cinema',
@@ -15,11 +16,13 @@ export class CinemaComponent implements OnInit {
   public currentVille;
   public currentCinema;
   public currentProjection;
-  public selectedTickets: any[];
+  public selectedTickets: Array<any> = new Array<any>();
 
-  constructor(public cinemaService : CinemaService) { }
+  constructor(public cinemaService : CinemaService,private authenticationService:AuthenticationService) { }
 
+  userName;
   ngOnInit(): void {
+    this.userName = this.authenticationService.username;
     this.cinemaService.getVilles().subscribe(
       data=>{this.villes = data;},
       err=>{console.log(err);}
@@ -29,7 +32,7 @@ export class CinemaComponent implements OnInit {
     this.currentVille = v;
     this.salles = undefined;
     this.currentCinema = undefined;
-    this.cinemaService.getCinemas(v).subscribe( 
+    this.cinemaService.getCinemas(v).subscribe(
       data=>{
         this.cinemas = data;
       },
@@ -57,7 +60,7 @@ export class CinemaComponent implements OnInit {
   onGetTicketsPlace(p){
     //console.log(this.selectedTickets);
     this.currentProjection = p;
-    this.cinemaService.getTicketsPlace(p).subscribe( 
+    this.cinemaService.getTicketsPlace(p).subscribe(
       data=>{
         this.currentProjection.tickets = data;
         this.selectedTickets = [];
@@ -71,8 +74,8 @@ export class CinemaComponent implements OnInit {
       t.selected = false;
     }else{
       t.selected = true;
-      this.selectedTickets.push(t); 
-    }       
+      this.selectedTickets.push(t);
+    }
   }
   getTicketClass(t){
     let str="btn ticket ";
@@ -91,12 +94,16 @@ export class CinemaComponent implements OnInit {
       tickets.push(t.id);
     });
     dataForm.tickets = tickets;
-    this.cinemaService.payerTickets(dataForm).subscribe( 
+    this.cinemaService.payerTickets(dataForm).subscribe(
       data=>{
         alert("Tickets reserves avec succe!")
         this.onGetTicketsPlace(this.currentProjection);
       },
       err=>{console.log(err);}
       );
+  }
+
+  isAuthenticated() {
+    return this.authenticationService.isAuthenticated();
   }
 }

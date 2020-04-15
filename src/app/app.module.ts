@@ -10,6 +10,7 @@ import { AdminVillesComponent } from './admin-villes/admin-villes.component';
 import { AdminCinemasComponent } from './admin-cinemas/admin-cinemas.component';
 import { LoginComponent } from './login/login.component';
 import {JwtModule} from "@auth0/angular-jwt";
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {JwtModule} from "@auth0/angular-jwt";
     CinemaComponent,
     AdminVillesComponent,
     AdminCinemasComponent,
-    LoginComponent
+    LoginComponent,
+    AdminUsersComponent
   ],
   imports: [
     BrowserModule,

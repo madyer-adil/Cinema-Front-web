@@ -25,8 +25,10 @@ export class AuthenticationService {
   private parseJWT() {
     let jwtHelper = new JwtHelperService();
     let objJWT = jwtHelper.decodeToken(this.jwt);
-    this.username = objJWT.obj ;
-    this.roles = objJWT.roles;
+    if (objJWT!=null) {
+      this.username = objJWT.sub ;
+      this.roles = objJWT.roles;
+    }
   }
   isAdmin(){
     return this.roles.indexOf('ADMIN') >= 0;
